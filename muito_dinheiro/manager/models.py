@@ -7,10 +7,20 @@ class Client(models.Model):
     def __str__(self):
         return f"(id: {self.id}) (name: {self.name}) (created_on: {self.created_on}"
 
+
+class Currency(models.Model):
+    name = models.CharField(max_length=255, blank=False, null=False)
+    code = models.CharField(max_length=255, blank=False, null=False)
+    symbol = models.CharField(max_length=255, blank=False, null=False)
+    indexed_value = models.DecimalField(max_digits=14, decimal_places=2, blank=False, null=False)
+
+    def __srt__(self):
+        return f"(id: {self.id}) (name: {self.name}) (code: {self.code}) (symbol: {self.symbol}) (indexed value: {self.indexed_value})"
+
 class Operation(models.Model):
     client = models.ForeignKey("Client", on_delete=models.CASCADE, related_name="operations")
-    source_currency = models.CharField(max_length=255, blank=False, null=False)
-    target_currency = models.CharField(max_length=255, blank=False, null=False)
+    source_currency = models.ForeignKey("Currency", on_delete=models.CASCADE, related_name="source_operations")
+    target_currency = models.ForeignKey("Currency", on_delete=models.CASCADE, related_name="target_operations")
     source_amount = models.DecimalField(max_digits=15, decimal_places=2, blank=False)
     converted_amount = models.DecimalField(max_digits=15, decimal_places=2, blank=False)
     fee = models.DecimalField(max_digits=14, decimal_places=2, blank=False)
