@@ -5,7 +5,7 @@ class Client(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"(id: {self.id}) (name: {self.name}) (created_on: {self.created_on}"
+        return f"(id: {self.id}) (name: {self.name}) (created_on: {self.created_on})"
 
 
 class Currency(models.Model):
@@ -13,9 +13,10 @@ class Currency(models.Model):
     code = models.CharField(max_length=255, blank=False, null=False)
     symbol = models.CharField(max_length=255, blank=False, null=False)
     indexed_value = models.DecimalField(max_digits=14, decimal_places=2, blank=False, null=False)
+    
+    def __str__(self):
+        return f"(id: {self.id}) (code: {self.code}) (name: {self.name}) (symbol: {self.symbol}) (indexed_value: {self.indexed_value})"
 
-    def __srt__(self):
-        return f"(id: {self.id}) (name: {self.name}) (code: {self.code}) (symbol: {self.symbol}) (indexed value: {self.indexed_value})"
 
 class Operation(models.Model):
     client = models.ForeignKey("Client", on_delete=models.CASCADE, related_name="operations")
@@ -23,10 +24,11 @@ class Operation(models.Model):
     target_currency = models.ForeignKey("Currency", on_delete=models.CASCADE, related_name="target_operations")
     source_amount = models.DecimalField(max_digits=15, decimal_places=2, blank=False)
     converted_amount = models.DecimalField(max_digits=15, decimal_places=2, blank=False)
-    fee = models.DecimalField(max_digits=14, decimal_places=2, blank=False)
+    fee_amount = models.DecimalField(max_digits=14, decimal_places=2, blank=False)
+    total = models.DecimalField(max_digits=15, decimal_places=2, blank=False)
     created_on = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return f"""(id: {self.id}) (client: {self.client.name})
-        (source: {self.source_currency}) (target: {self.target_currency}) (amount: {self.source_currency})
-        (converted: {self.converted_amount}) (fee: {self.fee}) (created on: {self.created_on})"""
+        return f"""(id: {self.id}) (source: {self.source_currency}) (target: {self.target_currency})
+        (amount: {self.source_currency}) (converted: {self.converted_amount}) (fee: {self.fee_amount})
+        (total: {self.total})(created_on: {self.created_on})"""
