@@ -22,10 +22,10 @@ class Operation(models.Model):
     client = models.ForeignKey("Client", on_delete=models.CASCADE, related_name="operations")
     source_currency = models.ForeignKey("Currency", on_delete=models.CASCADE, related_name="source_operations")
     target_currency = models.ForeignKey("Currency", on_delete=models.CASCADE, related_name="target_operations")
-    source_amount = models.DecimalField(max_digits=15, decimal_places=2, blank=False)
-    converted_amount = models.DecimalField(max_digits=15, decimal_places=2, blank=False)
-    fee_amount = models.DecimalField(max_digits=14, decimal_places=2, blank=False)
-    total = models.DecimalField(max_digits=15, decimal_places=2, blank=False)
+    source_amount = models.DecimalField(max_digits=21, decimal_places=8, blank=False)
+    converted_amount = models.DecimalField(max_digits=21, decimal_places=8, blank=False)
+    fee_amount = models.DecimalField(max_digits=20, decimal_places=8, blank=False)
+    total = models.DecimalField(max_digits=21, decimal_places=8, blank=False)
     created_on = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
