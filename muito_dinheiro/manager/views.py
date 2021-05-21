@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -74,16 +75,17 @@ def add_operation(request):
 
         # Converts currency
         sourceIndex = float(source_currency.indexed_value)
-        targetIndex = float(target_currency.indexed_value)
-        converted_amount = (targetIndex / sourceIndex) * amount
+        
+        # Converted in dollars 
+        converted_amount = amount / sourceIndex
         fee_amount = converted_amount * fee
         total = converted_amount - fee_amount
 
         # Attempts to save to database
         try:
             new_operation = Operation(client=client, source_currency=source_currency,
-            target_currency=target_currency, source_amount=amount, converted_amount=round(converted_amount, 2),
-            fee_amount=round(fee_amount, 2), total=round(total, 2))
+            target_currency=target_currency, source_amount=amount, converted_amount=converted_amount,
+            fee_amount=fee_amount, total=total)
             new_operation.save()
             messages.success(request, f'Operação cadastrada com sucesso.')
             return HttpResponseRedirect(reverse('add_operation'))
@@ -104,4 +106,61 @@ def report(request):
 
 
 def reports(request):
-    return render(request, "manager/reports.html")
+    clients = Client.objects.all()
+    all_operations = Operation.objects.all().order_by('id')
+
+    if request.method == 'POST':
+
+        # Validates client
+        if not request.POST['client_name']:
+            all_clients = True
+        else:
+            try:
+                all_clients = False
+                client = Client.objects.get(name=request.POST['client_name'])
+            except Client.DoesNotExist:
+                messages.error(request, f'Cliente não encontrado.')
+                return HttpResponseRedirect(reverse('reports'))
+
+        # Data validation
+        try:
+            start_date =  datetime.datetime.strptime(request.POST['start_date'], "%Y-%m-%d").date()
+            end_date = datetime.datetime.strptime(request.POST['end_date'], "%Y-%m-%d").date()
+            end_date_plus_one = end_date + datetime.timedelta(days=1)
+        except ValueError:
+            messages.error(request, f'Data inválida.')
+            return HttpResponseRedirect(reverse('reports'))
+        
+        if not all_clients:
+            operations = client.operations.filter(created_on__range=[start_date, end_date_plus_one])
+            client = client.name
+        else:
+            operations = Operation.objects.filter(created_on__range=[start_date, end_date_plus_one])
+            client = None
+        
+        period_total = operations.aggregate(Sum('converted_amount'), Sum('fee_amount'), Sum('total'),)
+        print(period_total)
+
+        empty = False
+        if not operations:
+            empty = True
+
+        return render(request, "manager/reports.html", {
+            'total_conversions': period_total['converted_amount__sum'],
+            'total_fees': period_total['fee_amount__sum'],
+            'total_operations': period_total['total__sum'],
+            'clients': clients,
+            'start_date': start_date,
+            'end_date': end_date,
+            'first': all_operations.first(),
+            'last': all_operations.last(),
+            'operations': operations.order_by('-id'),
+            'client': client,
+            'empty': empty,
+        })
+
+    return render(request, "manager/reports.html", {
+        'clients': clients,
+        'first': all_operations.first(),
+        'last': all_operations.last()
+    })
