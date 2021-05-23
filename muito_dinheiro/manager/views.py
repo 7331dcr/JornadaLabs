@@ -107,11 +107,11 @@ def report(request):
 
 def reports(request):
     clients = Client.objects.all()
-    all_operations = Operation.objects.all().order_by('id')
+    all_operations = Operation.objects.all()
 
     if request.method == 'POST':
 
-        # Validates client
+        # Client validation
         if not request.POST['client_name']:
             all_clients = True
         else:
@@ -122,7 +122,7 @@ def reports(request):
                 messages.error(request, f'Cliente não encontrado.')
                 return HttpResponseRedirect(reverse('reports'))
 
-        # Data validation
+        # Date validation
         try:
             start_date =  datetime.datetime.strptime(request.POST['start_date'], "%Y-%m-%d").date()
             end_date = datetime.datetime.strptime(request.POST['end_date'], "%Y-%m-%d").date()
@@ -131,15 +131,15 @@ def reports(request):
             messages.error(request, f'Data inválida.')
             return HttpResponseRedirect(reverse('reports'))
         
+        # Returns all clients if 'client_name' form is empty
         if not all_clients:
             operations = client.operations.filter(created_on__range=[start_date, end_date_plus_one])
             client = client.name
         else:
-            operations = Operation.objects.filter(created_on__range=[start_date, end_date_plus_one])
+            operations = all_operations.filter(created_on__range=[start_date, end_date_plus_one])
             client = None
         
         period_total = operations.aggregate(Sum('converted_amount'), Sum('fee_amount'), Sum('total'),)
-        print(period_total)
 
         empty = False
         if not operations:
