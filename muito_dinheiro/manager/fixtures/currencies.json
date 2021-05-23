@@ -16,7 +16,7 @@
             "name": "Dólar australiano",
             "code": "AUD",
             "symbol": "$",
-            "indexed_value": 1.27
+            "indexed_value": 1.29
         }
     },
     {
@@ -26,7 +26,7 @@
             "name": "Real brasileiro",
             "code": "BRL",
             "symbol": "R$",
-            "indexed_value": 5.22
+            "indexed_value": 5.37
         }
     },
     {
@@ -53,10 +53,10 @@
         "model": "manager.Currency",
         "pk": 6,
         "fields": {
-            "name": "Iuane chinês",
+            "name": "Yuan chinês",
             "code": "CNY",
             "symbol": "¥",
-            "indexed_value": 6.42
+            "indexed_value": 6.43
         }
     },
     {
@@ -66,7 +66,7 @@
             "name": "Euro",
             "code": "EUR",
             "symbol": "€",
-            "indexed_value": 0.82
+            "indexed_value": 0.83
         }
     },
     {
@@ -86,7 +86,7 @@
             "name": "Dólar de Hong Kong",
             "code": "HKD",
             "symbol": "$",
-            "indexed_value": 7.77
+            "indexed_value": 7.76
         }
     },
     {
@@ -96,7 +96,7 @@
             "name": "Iene japonês",
             "code": "JPY",
             "symbol": "¥",
-            "indexed_value": 108.8
+            "indexed_value": 108.93
         }
     },
     {
@@ -106,7 +106,7 @@
             "name": "Dólar da Nova Zelândia",
             "code": "NZD",
             "symbol": "$",
-            "indexed_value": 1.37
+            "indexed_value": 1.39
         }
     }
 ]
