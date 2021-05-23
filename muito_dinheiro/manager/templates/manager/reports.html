@@ -58,9 +58,10 @@
                 <td>Período: <strong>{{start_date|date:'d/m/Y'}}</strong> a <strong>{{end_date|date:'d/m/Y'}}</strong>.</td>
             </tr>
         </table>
+
         <br>
-        <table>
-            <strong>
+
+        <strong><table>
             <tr>
                 <td>TOTAL CONVERSÕES EFETUADAS NO PERÍODO:</td>
                 <td>R$ {{total_conversions|floatformat:"2"|intcomma}}</td>
@@ -73,8 +74,7 @@
                 <td>TOTAL OPERAÇÕES NO PERÍODO (convertido - taxa):</td>
                 <td>R$ {{total_operations|floatformat:"2"|intcomma}}</td>
             </tr>
-            </strong>
-        </table>
+        </table></strong>
 
         <hr>
         <h2>Operações realizadas:</h2>
