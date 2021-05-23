@@ -93,7 +93,7 @@ def add_operation(request):
             messages.error(request, f'Não foi possível cadastrar a operação.')
             return HttpResponseRedirect(reverse('add_operation'))
 
-    clients = Client.objects.all()
+    clients = Client.objects.all().order_by('name')
     currencies = Currency.objects.all()
     return render(request, "manager/add_operation.html", {
         'clients': clients,
@@ -106,7 +106,7 @@ def report(request):
 
 
 def reports(request):
-    clients = Client.objects.all()
+    clients = Client.objects.all().order_by('name')
     all_operations = Operation.objects.all()
 
     if request.method == 'POST':
@@ -133,10 +133,10 @@ def reports(request):
         
         # Returns all clients if 'client_name' form is empty
         if not all_clients:
-            operations = client.operations.filter(created_on__range=[start_date, end_date_plus_one])
+            operations = client.operations.filter(created_on__range=[start_date, end_date_plus_one]).order_by('-id')
             client = client.name
         else:
-            operations = all_operations.filter(created_on__range=[start_date, end_date_plus_one])
+            operations = all_operations.filter(created_on__range=[start_date, end_date_plus_one]).order_by('-id')
             client = None
         
         period_total = operations.aggregate(Sum('converted_amount'), Sum('fee_amount'), Sum('total'),)
@@ -154,7 +154,7 @@ def reports(request):
             'end_date': end_date,
             'first': all_operations.first(),
             'last': all_operations.last(),
-            'operations': operations.order_by('-id'),
+            'operations': operations,
             'client': client,
             'empty': empty,
         })
