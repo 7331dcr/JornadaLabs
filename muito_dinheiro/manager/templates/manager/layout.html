@@ -4,6 +4,30 @@
         <title>Muito Dinheiro</title>
         <link rel="shortcut icon" href="#">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .closebtn {
+                margin-left: 15px;
+                color: white;
+                font-weight: bold;
+                float: right;
+                font-size: 22px;
+                line-height: 20px;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+            .alert {
+                margin: 5px;
+                padding: 5px;
+                color: white;
+                max-width: fit-content;
+            }
+            .positive {
+                background-color: #0f7536;
+            }
+            .negative {
+                background-color: #831919;
+            }
+        </style>
     </head>
     <body>
         <nav style="font-size: larger;">
@@ -12,7 +36,7 @@
             <a href="{% url 'reports' %}">Relatórios</a>
         </nav>
         <br>
-        <div class="message_alert">
+        <div>
             {% if messages %}
                 {% for message in messages %}
                     {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
