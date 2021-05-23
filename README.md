@@ -9,7 +9,7 @@ Dentro do folder `/muito_dinheiro`, no terminal de sua escolha:
 
 - executar `python manage.py makemigrations` para que o Django gere os arquivos necessários para do database;
 - executar `python manage.py migrate` para que os arquivos sejam executados e o database seja criado;
-- executar `python manage.py loaddata currencies.json` para que as moedas e suas cotações pré-definidas sejam adicionadas ao database.
+- executar `python manage.py loaddata currencies.json` para que as moedas e suas cotações pré-definidas sejam adicionadas ao database;
 - executar `python manage.py runserver` para que o servidor seja iniciado.
 
 Por padrão, o endereço do servidor será `http://127.0.0.1:8000/`.
@@ -37,8 +37,8 @@ Permite cadastrar uma nova operação, requerindo os seguintes campos:
 `/relatorios`
 
 Permite gerar um **Relatóio de Operações** listando todas as operações registradas, requerindo os seguintes campos:
-- nome do cliente (via lista).
-- intervalo de tempo (limitades inicial e final determinados por operações já cadastradas)
+- nome do cliente (via lista);
+- intervalo de tempo (limites inicial e final determinados por operações já cadastradas).
 
 Gerado o relatório, este detalha, para o período selecionado:
 
@@ -53,7 +53,7 @@ Detalha também, abaixo, cada operação realizada, contendo:
 - Valor a ser convertido (em unidade monetária conforme origem);
 - Moeda destino;
 - Valor após conversão (em unidade monetária conforme destino);
-- Taxa cobrada;
+- Taxa cobrada (em unidade monetária conforme destino);
 - Valor da operação, correspondente ao **valor da conversão** subtraído pela **taxa cobrada** (em unidade monetária conforme destino).
 
 `/admin`
@@ -70,4 +70,4 @@ Permite também **adicionar** novas moedas ou **alterar** existentes.
 
 - O total geral para o período selecionado é sempre expressado em Reais.
 
-- As cotações são indexadas em dólares dos estados unidos, com cotação cotação do dia **23/05/2021 - 07:30 GMT-3**. Todas as cotações (caso novas moedas sejam adicionadas posteriormente) devem ser indexadas em dólar estadunidense.
+- As cotações são armazenadas no database em unidades de dólar dos estados unidos, com cotação cotação do dia **23/05/2021 - 07:30 GMT-3**. Todas as cotações (caso novas moedas sejam adicionadas posteriormente) devem ser indexadas em dólar estadunidense.
