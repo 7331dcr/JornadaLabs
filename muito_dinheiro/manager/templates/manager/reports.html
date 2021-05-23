@@ -32,14 +32,17 @@
             <br>
 
             <input type="submit" value="Gerar relatório">
+            
         {% else %}
             Não há clientes cadastrados.
         {% endif %}
     </form>
+    
     <br>
     
     {% if operations %}
         <hr>
+
         <h2>Relatório de Operações (Gerado em {% now 'd/m/Y - H:i' %})</h2>
 
         <table>
@@ -56,7 +59,8 @@
             </tr>
         </table>
         <br>
-        <strong><table>
+        <table>
+            <strong>
             <tr>
                 <td>TOTAL CONVERSÕES EFETUADAS NO PERÍODO:</td>
                 <td>R$ {{total_conversions|floatformat:"2"|intcomma}}</td>
@@ -69,13 +73,14 @@
                 <td>TOTAL OPERAÇÕES NO PERÍODO (convertido - taxa):</td>
                 <td>R$ {{total_operations|floatformat:"2"|intcomma}}</td>
             </tr>
-        </table></strong>
+            </strong>
+        </table>
+
         <hr>
         <h2>Operações realizadas:</h2>
         <hr>
 
         {% for operation in operations %}
-
             <h3>{{operation.created_on|date:'d/m/Y - H:i'}}</h3>
 
             {% if not client %} 
@@ -88,9 +93,6 @@
             {% endif %}
             
             <table>
-                <!-- <tr>
-                    <td><strong>Origem:</strong></td>
-                </tr> -->
                 <tr>
                     <td>Moeda origem: <strong>{{operation.source_currency.code}}</strong> - <strong>{{operation.source_currency.name}}</strong></td>
                 </tr>
@@ -102,9 +104,7 @@
             <br>
 
             <table>
-                <!-- <tr>
-                    <td><strong>Conversão:</strong></td>
-                <tr> -->
+                <tr>
                     <td>Moeda destino: <strong>{{operation.target_currency.code}}</strong> - <strong>{{operation.target_currency.name}}</strong></td>
                 </tr>
                 <tr>
@@ -119,9 +119,7 @@
             </table>
 
             <hr>
-
         {% endfor %}
-
     {% endif %}
 
     {% if empty %}
