@@ -36,7 +36,7 @@ Permite cadastrar uma nova operação, requerindo os seguintes campos:
 
 `/relatorios`
 
-Permite gerar um *Relatóio de Operações* listando todas as operações registradas, requerindo os seguintes campos:
+Permite gerar um **Relatóio de Operações** listando todas as operações registradas, requerindo os seguintes campos:
 - nome do cliente (via lista).
 - intervalo de tempo (limitades inicial e final determinados por operações já cadastradas)
 
@@ -54,13 +54,13 @@ Detalha também, abaixo, cada operação realizada, contendo:
 - Moeda destino;
 - Valor após conversão (em unidade monetária conforme destino);
 - Taxa cobrada;
-- Valor da operação, correspondente ao *valor da conversão* subtraído pela *taxa cobrada* (em unidade monetária conforme destino).
+- Valor da operação, correspondente ao **valor da conversão** subtraído pela **taxa cobrada** (em unidade monetária conforme destino).
 
 `/admin`
 
 Interface automática fornecida pelo Django. Permite visualizar e gerenciar de maneira fácil o database (CRUD).
 
-Permite também *adicionar* novas moedas ou *alterar* existentes.
+Permite também **adicionar** novas moedas ou **alterar** existentes.
 
 ## Observações e decisões:
 
@@ -70,4 +70,4 @@ Permite também *adicionar* novas moedas ou *alterar* existentes.
 
 - O total geral para o período selecionado é sempre expressado em Reais.
 
-- As cotações são indexadas em dólares dos estados unidos, com cotação cotação do dia *23/05/2021 - 07:30 GMT-3*. Todas as cotações (caso novas moedas sejam adicionadas posteriormente) devem ser indexadas em dólar estadunidense.
+- As cotações são indexadas em dólares dos estados unidos, com cotação cotação do dia **23/05/2021 - 07:30 GMT-3**. Todas as cotações (caso novas moedas sejam adicionadas posteriormente) devem ser indexadas em dólar estadunidense.
