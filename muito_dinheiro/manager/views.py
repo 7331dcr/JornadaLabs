@@ -101,10 +101,6 @@ def add_operation(request):
     })
 
 
-def report(request):
-    pass
-
-
 def reports(request):
     clients = Client.objects.all().order_by('name')
     all_operations = Operation.objects.all()
