@@ -36,11 +36,11 @@ Permite cadastrar uma nova operação, requerindo os seguintes campos:
 
 `/relatorios`
 
-Permite gerar um relatório listando todas as operações registradas requerindo os seguintes campos:
+Permite gerar um *Relatóio de Operações* listando todas as operações registradas, requerindo os seguintes campos:
 - nome do cliente (via lista).
 - intervalo de tempo (limitades inicial e final determinados por operações já cadastradas)
 
-Gerado o *Relatóio de Operações*, este detalha, para o período selecionado:
+Gerado o relatório, este detalha, para o período selecionado:
 
 - Valor total das conversões efetuadas (em reais);
 - Valor total das taxas cobradas (em reais);
